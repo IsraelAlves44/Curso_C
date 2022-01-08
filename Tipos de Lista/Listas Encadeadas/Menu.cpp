@@ -28,17 +28,22 @@ int tamanho(Pessoa *ponteiroEncadeado)
     }
     return tamanho;
 }
-
-void imprimeEncadeada(Pessoa *ponteiroEncadeado)
+void imprimeEncadeada(Pessoa *ponteiroEncadeada)
 {
-    Pessoa *p = ponteiroEncadeado;
+    Pessoa *p = ponteiroEncadeada;
+
+    int posicao = 0;
 
     while (p != NULL)
     {
-        cout << p->proximo << "," << p->rg << "\n";
+        cout << posicao << "-" << p->nome << "," << p->rg << "\n";
         p = p->proximo;
+        posicao++;
     }
+
+    free(p);
 }
+
 int main()
 {
 
