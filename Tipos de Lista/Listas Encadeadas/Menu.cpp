@@ -11,14 +11,25 @@ struct Pessoa
     struct Pessoa *proximo;
 };
 
+// Funcao para limpar a tela
 void limpatela()
 {
     system("cls");
 }
+
+// Funcao para retornar o tamanho da lista
 int tamanho(Pessoa *ponteiroEncadeado)
 {
+    // Se a lista estiver vazia
+    if (ponteiroEncadeado->nome == "")
+    {
+        return 0;
+    }
+
+    // Lista comeca com valor 0
     int tamanho = 0;
 
+    // Criacao do ponteiro auxiliar
     Pessoa *p = ponteiroEncadeado;
 
     while (p != NULL)
@@ -28,15 +39,20 @@ int tamanho(Pessoa *ponteiroEncadeado)
     }
     return tamanho;
 }
+
+// Funcao para imprimir a lista
 void imprimeEncadeada(Pessoa *ponteiroEncadeada)
 {
+
     Pessoa *p = ponteiroEncadeada;
 
     int posicao = 0;
 
     while (p != NULL)
     {
-        cout << posicao << "-" << p->nome << "," << p->rg << "\n";
+        cout << posicao << "-"
+             << "Nome:" << p->nome << " - "
+             << " RG:" << p->rg << "\n";
         p = p->proximo;
         posicao++;
     }
@@ -44,16 +60,45 @@ void imprimeEncadeada(Pessoa *ponteiroEncadeada)
     free(p);
 }
 
+// Funcao para adionar no inicio da lista
+void adcComecoEncadeada(Pessoa *&ponteiroEncadeado, string nome, int rg)
+{
+    // Cria uma nova Estrutura
+    Pessoa *novoValor = new Pessoa;
+    novoValor->nome = nome;
+    novoValor->rg = rg;
+    novoValor->proximo = ponteiroEncadeado;
+
+    // Verifica se a lista esta vazia
+    if (ponteiroEncadeado->nome == "")
+    {
+        novoValor->proximo = NULL;
+    }
+    else
+    {
+        novoValor->proximo = ponteiroEncadeado;
+    }
+
+    // Redireciona o Ponteirolo
+    ponteiroEncadeado = novoValor;
+}
+
+// Principal
+
 int main()
 {
 
     int funcaodesejada = 1;
     int *ponteiro;
+    string nome;
+    int rg;
 
-    Pessoa *ponteiroEncadeado;
+    Pessoa *ponteiroEncadeado = new Pessoa;
+    ponteiroEncadeado->nome = "";
+    ponteiroEncadeado->rg = 0;
+    ponteiroEncadeado->proximo = NULL;
 
     // Cria o primeiro valor
-
     Pessoa *novoPrimeiroValor = new Pessoa;
     novoPrimeiroValor->nome = "Rogerio";
     novoPrimeiroValor->rg = 150975;
@@ -70,19 +115,27 @@ int main()
 
     while (funcaodesejada < 9 && funcaodesejada > 0)
     {
-        cout << "Tamanho da Lista: " << tamanho(ponteiroEncadeado) << "\n";
         cout << "Operacoes \n";
         cout << "1 - Insercao de um node no inicio da lista \n";
         cout << "2 - Insercao de um node no fim da lista \n";
         cout << "3 - Insercao de um node na posicao N \n";
-        cout << "4 - Retirar um node do inicio da lista \n";
+        cout << "4 - Retirar um node do inic11io da lista \n";
         cout << "5 - Retirar um node no fim da lista \n";
         cout << "6 - Retirar um node na posicao N \n";
         cout << "7 - Procurar um node com o campo RG \n";
         cout << "8 - Imprimir a Lista. \n";
         cout << "9 - Sair do sistema. \n";
+        cout << "Tamanho da Lista: " << tamanho(ponteiroEncadeado) << "\n";
         cout << "\nEscolha um numero e pressione ENTER: \n";
-        imprimeEncadeada(ponteiroEncadeado);
+
+        if (tamanho(ponteiroEncadeado) == 0)
+        {
+            cout << "Lista vazia.";
+        }
+        else
+        {
+            imprimeEncadeada(ponteiroEncadeado);
+        }
 
         cin >> funcaodesejada;
 
@@ -91,7 +144,18 @@ int main()
         switch (funcaodesejada)
         {
         case 1:
+            cout << "Tamanho da Lista: " << tamanho(ponteiroEncadeado) << "\n";
+            cout << "\n";
             cout << "Opcao escolhida: 1";
+            cout << "\n";
+            cout << "Digite um nome: ";
+            cin >> nome;
+            cout << "Digite um RG: ";
+            cin >> rg;
+
+            adcComecoEncadeada(ponteiroEncadeado, nome, rg);
+            imprimeEncadeada(ponteiroEncadeado);
+
             break;
         case 2:
             cout << "Opcao escolhida: 2";
