@@ -83,8 +83,50 @@ void adcComecoEncadeada(Pessoa *&ponteiroEncadeado, string nome, int rg)
     ponteiroEncadeado = novoValor;
 }
 
-// Principal
+void adcFimEncadeada(Pessoa *ponteiroEncadeada, string nome, int rg)
+{
 
+    Pessoa *novoValor = new Pessoa;
+    novoValor->nome = nome;
+    novoValor->rg = rg;
+    novoValor->proximo = NULL;
+
+    Pessoa *p = ponteiroEncadeada;
+
+    while (p != NULL)
+    {
+
+        if (p->proximo == NULL)
+        {
+
+            p->proximo = novoValor;
+            return;
+        }
+        p = p->proximo;
+    }
+
+    // Libera Memoria
+    free(p);
+    free(novoValor);
+}
+
+void adcposicao(Pessoa *ponteiroEncadeado, int posicao, string nome, int rg)
+{
+    Pessoa *novaPessoa = new Pessoa;
+    novaPessoa->nome = nome;
+    novaPessoa->rg = rg;
+    novaPessoa->proximo = NULL;
+
+    Pessoa *p = ponteiroEncadeado;
+
+    int cont = 0;
+
+    while (p != NULL)
+    {
+    }
+}
+
+// Principal
 int main()
 {
 
@@ -159,9 +201,59 @@ int main()
             break;
         case 2:
             cout << "Opcao escolhida: 2";
+            cout << "\n";
+            cout << "Tamanho da Lista: " << tamanho(ponteiroEncadeado) << "\n";
+            cout << "\n";
+            cout << "Digite um nome: ";
+            cin >> nome;
+            cout << "Digite um RG: ";
+            cin >> rg;
+
+            if (tamanho(ponteiroEncadeado) == 0)
+            {
+                adcComecoEncadeada(ponteiroEncadeado, nome, rg);
+            }
+            else
+            {
+                adcFimEncadeada(ponteiroEncadeado, nome, rg);
+            }
+            imprimeEncadeada(ponteiroEncadeado);
             break;
         case 3:
+            int posicao;
             cout << "Opcao escolhida: 3";
+
+            cout << "\n";
+            cout << "Digite uma posicao: ";
+            cin >> posicao;
+            cout << "Digite um nome: ";
+            cin >> nome;
+            cout << "Digite um RG: ";
+            cin >> rg;
+
+            if (posicao == 0)
+            {
+                adcComecoEncadeada(ponteiroEncadeado, nome, rg);
+            }
+            else if (tamanho(ponteiroEncadeado) - 1)
+            {
+                adcFimEncadeada(ponteiroEncadeado, nome, rg);
+            }
+            else if ()
+            {
+                adcposicao(ponteiroEncadeado, posicao, nome, rg);
+            }
+
+            if (tamanho(ponteiroEncadeado) == 0)
+            {
+                adcComecoEncadeada(ponteiroEncadeado, nome, rg);
+            }
+            else
+            {
+                adcFimEncadeada(ponteiroEncadeado, nome, rg);
+            }
+            imprimeEncadeada(ponteiroEncadeado);
+            break;
             break;
         case 4:
             cout << "Opcao escolhida: 4";
